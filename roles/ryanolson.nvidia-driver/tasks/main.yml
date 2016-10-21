@@ -1,0 +1,20 @@
+---
+
+- name: Download Driver Package
+  get_url: 
+    url: http://us.download.nvidia.com/XFree86/Linux-x86_64/{{ nvidia_driver_version }}/NVIDIA-Linux-x86_64-{{ nvidia_driver_version }}.run
+    dest: /tmp/nvidia-driver.run
+    checksum: md5:95a6401db6576eaeea6ba4bc06fb61d2
+    mode: u+rwx
+
+- name: Run Install Script
+  script: /tmp/nvidia-driver.run --accept-license --silent --no-opengl-files --no-nouveau-check --no-x-check creates=/usr/bin/nvidia-smi
+    
+#- name: add ppa:graphics-drivers
+#  apt_repository: 
+#    repo: 'ppa:graphics-drivers/ppa'
+#    update_cache: yes
+
+#- name: install driver
+#  apt: name=nvidia-370 state=latest
+
