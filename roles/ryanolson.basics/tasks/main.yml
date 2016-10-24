@@ -10,6 +10,6 @@
     - python-pip
     - python-dev
     - openssh-server
+    - screen
     - vim
     - wget
-
