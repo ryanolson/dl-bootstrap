@@ -1,4 +1,34 @@
 ---
-- name: 'docker-apt-get-update'
-  apt:
-    update_cache: true
+
+- name: docker-apt-get-update
+  apt: update_cache=yes
+
+- name: docker-stop
+  service: name=docker state=stopped
+# when: ansible_distribution_version in [ "14.04" ]
+
+#- name: docker-stop-sysd
+#  systemd: name=docker state=stopped
+#  when: ansible_distribution_version in [ "16.04", "16.10" ]
+
+ 
+- name: docker-remove-bridge
+  command: ip link del docker0 
+  notify:
+  - docker-stop
+# - docker-stop-sysd
+
+- name: docker-reload-daemon
+  command: systemctl daemon-reload
+  when: ansible_distribution_version in [ "16.04", "16.10" ]
+
+- name: docker-restart
+  service: name=docker state=restarted enabled=yes
+  notify:
+  - docker-reload-daemon
+# when: ansible_distribution_version in [ "14.04" ]
+
+#- name: docker restart sysd
+# systemd: name=docker state=restarted daemon_reload=yes enabled=yes
+#  when: ansible_distribution_version in [ "16.04", "16.10" ]
+

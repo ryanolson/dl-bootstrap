@@ -15,7 +15,7 @@ if ! type ansible > /dev/null; then
 fi
 
 # Add nvidia-docker role from Ansible Galaxy
-# ansible-galaxy install ryanolson.nvidia-docker --roles-path=/tmp/roles
+ansible-galaxy install -r requirements.yml --roles-path=./roles
 
 # Write playbook
 playbook=$(mktemp)

@@ -16,7 +16,8 @@
   apt_repository:
     repo: 'deb https://apt.dockerproject.org/repo {{ansible_distribution|lower}}-{{ ansible_distribution_release }} main'
     state: 'present'
-  notify: 'docker-apt-get-update'
+  notify:
+  - docker-apt-get-update
 
 - meta: flush_handlers
 
@@ -26,11 +27,18 @@
 - name: docker | install
   apt: name=docker-engine state=latest
 
-- name: docker | start service
-  service: name=docker state=started enabled=yes
+- name: docker | configure
+  include: configure.yml
+  when: ansible_distribution_version in [ "14.04" ]
+ 
+- name: docker | configure
+  include: configure-sysd.yml
+  when: ansible_distribution_version in [ "16.04", "16.10" ]
 
-#- name: docker | add user to docker group
-#  user: name={{ ansible_user_id }} groups=docker append=yes 
+- meta: flush_handlers
+
+- name: docker | start
+  service: name=docker state=started
 
 - name: Add user(s) to docker group
   user: 
@@ -40,8 +48,3 @@
   with_items: "{{ docker_users }}"
   when: docker_users is defined
 
-#- name: nvidia-docker | download deb
-#  get_url: url="https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.0-rc.3/nvidia-docker_1.0.0.rc.3-1_amd64.deb" dest="/tmp/nvidia-docker.deb"
-
-#- name: nvidia-docker | install deb
-#  apt: deb=/tmp/nvidia-docker.deb

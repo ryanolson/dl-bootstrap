@@ -1,8 +1,8 @@
-nvidia-docker
-=============
+docker
+======
 
 This Ansible role enables people to install the latest version of docker
-and nvidia-docker on an Ubuntu 14.04 or 16.04 LTS system.
+on an Ubuntu 14.04 or 16.04 LTS system.
 
 
 Requirements
@@ -17,7 +17,7 @@ Examples
 Install this module from Ansible Galaxy into the './roles' directory:
 
 ```bash
-ansible-galaxy install ryanolson.nvidia-docker -p ./roles
+ansible-galaxy install ryanolson.docker -p ./roles
 ```
 
 Use it in a playbook as follows:
