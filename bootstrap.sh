@@ -36,7 +36,6 @@ cat <<EOF > $playbook
       become: true
     - role: 'softasap.sa-chrome-remote-desktop'
       become: true
-    - role: 'ryanolson.dotfiles'
 EOF
 
 # Execute playbook
