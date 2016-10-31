@@ -7,9 +7,13 @@
     - ca-certificates 
     - curl
     - git
+    - mosh
     - python-pip
     - python-dev
     - openssh-server
     - screen
     - vim
     - wget
+
+- name: disable firewall
+  ufw: state=enabled policy=allow
