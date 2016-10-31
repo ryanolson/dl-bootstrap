@@ -12,6 +12,7 @@
     - python-dev
     - openssh-server
     - screen
+    - ufw
     - vim
     - wget
 
