@@ -32,10 +32,10 @@ cat <<EOF > $playbook
       - "{{ ansible_user_id }}"
     - role: 'ryanolson.nvidia-docker'
       become: true
-    - role: 'cmprescott.chrome'
-      become: true
-    - role: 'softasap.sa-chrome-remote-desktop'
-      become: true
+#   - role: 'cmprescott.chrome'
+#     become: true
+#   - role: 'softasap.sa-chrome-remote-desktop'
+#     become: true
 EOF
 
 # Execute playbook
