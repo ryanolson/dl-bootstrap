@@ -4,7 +4,7 @@
   get_url: 
     url: http://us.download.nvidia.com/XFree86/Linux-x86_64/{{ nvidia_driver_version }}/NVIDIA-Linux-x86_64-{{ nvidia_driver_version }}.run
     dest: /tmp/nvidia-driver.run
-    checksum: md5:{{ nvidia_driver_checksum }}
+    checksum: "{{ nvidia_driver_checksum }}"
     mode: u+rwx
 
 - name: Run Install Script
